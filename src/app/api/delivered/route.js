@@ -1,15 +1,38 @@
-// pages/api/most-frequently-bought.js
-import { NextResponse } from 'next/server';
-import { connectToDatabase, disconnectFromDatabase } from '../../lib/database';
+// pages/api/moveOrder.js
+import { NextResponse } from "next/server";
+import { connectToDatabase } from "../../lib/database";
 
-export const POST = async () => {
+export const POST = async (req, res) => {
+  if (req.method !== "POST") {
+    return NextResponse.json({ error: "Only POST requests allowed" }, { status: 405 });
+  }
+
+  const { orderId } = req.body;
+
+  if (!orderId) {
+    return NextResponse.json({ message: 'Order ID is required' }, { status: 400 });
+  }
+
   try {
     const client = await connectToDatabase();
-    const db = client.db('sweetshop');
-    const orders = await db.collection('delivered').find().toArray();
-    return NextResponse.json(orders);
+    const db = client.db("sweetshop");
+
+    // Find the order by ID
+    const order = await db.collection("orders").findOne({ orderId });
+
+    if (!order) {
+      return NextResponse.json({ message: 'Order not found' }, { status: 404 });
+    }
+
+    // Insert the order into the archivedOrders collection
+    await db.collection("delivered").insertOne(order);
+
+    // Delete the order from the original collection
+    await db.collection("orders").deleteOne({ orderId });
+
+    return NextResponse.json({ message: 'Order moved successfully' }, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.error(new Error('Failed to fetch data'));
+    console.error("Error moving order:", error);
+    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
 };

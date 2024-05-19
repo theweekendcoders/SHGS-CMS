@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import MoveOrderButton from "./MoveOrder";
 
 const getData = async () => {
   const res = await fetch("http://localhost:3000/api/orders", {
@@ -14,32 +15,32 @@ const getData = async () => {
 };
 
 const StandingOrders = async ({}) => {
-    const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-    const markAsDelivered = async (orderId) => {
-      // Send a request to your server to mark the order as delivered
-      const res = await fetch(`http://localhost:3000/api/delivered`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
-  
-      if (res.ok) {
-        setOrders(orders.filter(order => order._id !== orderId));
-      } else {
-        console.error("Failed to mark order as delivered");
-      }
+  const markAsDelivered = async (orderId) => {
+    // Send a request to your server to mark the order as delivered
+    const res = await fetch(`http://localhost:3000/api/delivered`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+
+    if (res.ok) {
+      setOrders(orders.filter((order) => order._id !== orderId));
+    } else {
+      console.error("Failed to mark order as delivered");
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const ordersData = await getData();
+      setOrders(ordersData);
     };
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        const ordersData = await getData();
-        setOrders(ordersData);
-      };
-      fetchData();
-    }, []);
+    fetchData();
+  }, []);
   return (
     <>
       <div className="flex flex-col justify-center items-center xl:w-full">
@@ -79,7 +80,7 @@ const StandingOrders = async ({}) => {
                         Payment type
                       </th>
                       <th className="px-6 align-middle py-3 text-sm capitalize whitespace-nowrap font-semibold text-left">
-                        Delivery
+                        Delivered
                       </th>
                     </tr>
                   </thead>
@@ -94,17 +95,15 @@ const StandingOrders = async ({}) => {
                           {order.userDetails.lastName}
                         </td>
                         <td className="px-6 align-middle font-medium text-sm whitespace-nowrap p-4 text-left flex flex-col gap-2">
-                          {order.orderedItems.map(
-                            (product, index) => (
-                              <p key={index}>
-                                {product.name}{" "}
-                                <span className="text-green-600">
-                                  {" "}
-                                  ( {product.weight}g x {product.quantity} ){" "}
-                                </span>{" "}
-                              </p>
-                            )
-                          )}
+                          {order.orderedItems.map((product, index) => (
+                            <p key={index}>
+                              {product.name}{" "}
+                              <span className="text-green-600">
+                                {" "}
+                                ( {product.weight}g x {product.quantity} ){" "}
+                              </span>{" "}
+                            </p>
+                          ))}
                         </td>
                         <td className="px-6 align-middle font-medium text-sm whitespace-nowrap p-4 text-left">
                           {order.orderDate}
@@ -126,9 +125,9 @@ const StandingOrders = async ({}) => {
                             (Check account)
                           </td>
                         )}
-                       <td className="px-4 align-middle font-medium text-sm whitespace-nowrap p-2 text-left">
-                          <button onClick={() => markAsDelivered(order._id)} className="text-white bg-slate-700 rounded-xl p-4 hover:scale-105">Delivered</button>
-                        </td> 
+                        <td className="px-4 align-middle font-medium text-sm whitespace-nowrap p-2 text-left">
+                          <MoveOrderButton orderId={order._id} />
+                        </td>
                         <td className="px-6 align-middle font-medium text-sm whitespace-nowrap p-4 text-left underline text-orange-600 hover:cursor-pointer">
                           <Link
                             href={{
