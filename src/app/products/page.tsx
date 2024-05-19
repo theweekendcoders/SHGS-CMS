@@ -8,27 +8,27 @@ const ProductsPage = () => {
   const pathname = usePathname();
   const navItems = [
     {
-      link: "/sweets",
+      link: "/products/sweets",
       title: "Sweets",
     },
     {
-      link: "/snacks",
+      link: "/products/snacks",
       title: "Snacks",
     },
     {
-      link: "/savouries",
+      link: "/products/savouries",
       title: "Savouries",
     },
     {
-      link: "/vathal",
+      link: "/products/vathal",
       title: "Vathal",
     },
     {
-      link: "/milk_items",
+      link: "/products/milk_items",
       title: "Milk Items",
     },
     {
-      link: "/poli",
+      link: "/products/poli",
       title: "Poli",
     },
   ];
