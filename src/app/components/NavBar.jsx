@@ -34,21 +34,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-row bg-white p-4 justify-between items-center">
-      <Link href="/">
-        <div className="flex flex-row gap-1 items-center">
-          <Image src="/assets/logo.svg" width={60} height={60} alt="menu" />
-          <h1 className="text-[20px] hidden md:block lg:block sm:block font-medium">
-            Sree Hariganesh Sweets
-          </h1>
-        </div>
-      </Link>
+    <div className="flex flex-row bg-white p-4 justify-evenly items-center">
       <Image
         src="/assets/menu.svg"
         width={32}
         height={32}
         alt="menu"
-        className="flex xl:hidden"
+        className="flex md:hidden lg:hidden xl:hidden justify-end"
         onClick={toggleSelectMenu}
       />
       {selectMenu && (
@@ -75,7 +67,7 @@ const Navbar = () => {
                   key={index}
                   className={`relative font-medium text-2xl ${
                     pathname === link.link
-                      ? `underline decoration-wavy underline-offset-8`
+                      ? `underline underline-offset-8`
                       : ` underline-offset-8 after:bg-white after:absolute after:h-[2px] after:w-0 after:bottom-0 after:left-0 after:top-7 hover:after:w-full after:transition-all after:duration-300 cursor-pointer`
                   }`}
                   onClick={toggleSelectMenu}
@@ -88,7 +80,7 @@ const Navbar = () => {
         </div>
       )}
 
-      <div className="hidden xl:flex lg:flex-row lg:justify-between lg:items-center text-black text-lg gap-10 font-normal tracking-tight">
+      <div className="hidden md:flex xl:flex lg:flex-row lg:justify-between lg:items-center text-black text-lg gap-10 font-normal">
         {navItems.map((link, index) => (
           <Link
             href={link.link}

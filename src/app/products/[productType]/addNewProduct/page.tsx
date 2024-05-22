@@ -9,7 +9,9 @@ const page = async ({ params }: any) => {
     const product = params.productType;
 
     return (
-        <Form product={product}/>
+        <div className='my-10'>
+            <Form product={product}/>
+        </div>
     )
 }
 
