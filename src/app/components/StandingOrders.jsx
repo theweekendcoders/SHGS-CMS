@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MoveOrderButton from "./MoveOrder";
+import { revalidatePath } from 'next/cache'
+
 
 const getData = async () => {
   const res = await fetch("http://localhost:3000/api/orders", {
@@ -29,6 +31,7 @@ const StandingOrders = async ({}) => {
 
     if (res.ok) {
       setOrders(orders.filter((order) => order._id !== orderId));
+      revalidatePath('/')
     } else {
       console.error("Failed to mark order as delivered");
     }
@@ -122,7 +125,7 @@ const StandingOrders = async ({}) => {
                         {order.userDetails.mobile}
                       </td>
                       <td
-                        className={`px-4 py-2 text-sm font-medium text-left text-white text-center ${
+                        className={`px-4 py-2 text-sm font-medium text-left text-white ${
                           Array.isArray(order.paymentDetails) &&
                           order.paymentDetails.length === 1
                             ? "bg-red-400"

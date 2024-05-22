@@ -1,6 +1,7 @@
 import React from 'react';
 
 const MoveOrderButton = ({ orderId }) => {
+  console.log(orderId);
   const moveOrder = async () => {
     try {
       const res = await fetch('http://localhost:3000/api/delivered', {
