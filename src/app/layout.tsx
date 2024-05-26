@@ -25,10 +25,10 @@ export default function RootLayout({
       <body
         className={`${manrope.className} bg-white mx-auto h-screen md:max-w-screen-md lg:max-w-screen-lg xl:max-w-full p-6 mx-auto xl:max-w-screen-2xl`}
       >
-        <SmoothScrolling>
+        {/* <SmoothScrolling> */}
           <NavBar />
           {children}
-        </SmoothScrolling>
+        {/* </SmoothScrolling> */}
       </body>
     </html>
   );

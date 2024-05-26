@@ -16,6 +16,7 @@ const page = async ({ params }: any) => {
   const product = params.productType;
   const products = await getData(product);
   console.log(products);
+  const product_category = product;
 
   return (
     <div className="p-4">
@@ -66,13 +67,34 @@ const page = async ({ params }: any) => {
                 </td>
                 <td className="px-6 py-4 text-md font-medium text-left flex items-center gap-4">
                   <div className="bg-black hover:bg-green-400 w-10 h-10 flex items-center justify-center rounded-md cursor-pointer">
-                    <Image
-                      src="/assets/edit.png"
-                      width={24}
-                      height={24}
-                      alt={product.name}
-                      className="object-scale-down"
-                    />
+
+                    <Link
+                      className="w-full"
+                      href={{
+                        pathname: `/products/${product_category}/updateProduct`,
+                        query: {
+                          productDetails: JSON.stringify(
+                            {
+                              product_id: product._id,
+                              product_name: product.name,
+                              product_price: product.price,
+                              product_image: product.image,
+                              product_category: product_category,
+                              product_stock: product.stock,
+                            }
+                        
+                          ),
+                        },
+                      }}
+                    >
+                      <Image
+                        src="/assets/edit.png"
+                        width={24}
+                        height={24}
+                        alt={product.name}
+                        className="object-scale-down"
+                      />
+                    </Link>
                   </div>
                   <div className="bg-black hover:bg-red-600 w-10 h-10 flex items-center justify-center rounded-md cursor-pointer">
                     <Image
