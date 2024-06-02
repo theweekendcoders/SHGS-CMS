@@ -1,10 +1,12 @@
 "use server";
 export const updateToDB = async (updatedData:any) => {
-console.log(updatedData)
   const response = await fetch(
-    "http://localhost:3000/api/products/addProduct",
+    "http://localhost:3000/api/products/updateProduct",
     {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"  // Ensure the content type is set to JSON
+      },
       body: JSON.stringify(
         updatedData
       ),

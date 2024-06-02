@@ -29,7 +29,7 @@ export const POST = async (req, res) => {
 
     // Insert the order into the archivedOrders collection
     await db.collection("delivered").insertOne(order);
-
+ 
     // Delete the order from the original collection
     await db.collection("orders").deleteOne({ _id: orderId });
 

@@ -17,33 +17,7 @@ const getData = async () => {
 };
 
 const StandingOrders = async ({}) => {
-  const [orders, setOrders] = useState([]);
-
-  const markAsDelivered = async (orderId) => {
-    // Send a request to your server to mark the order as delivered
-    const res = await fetch(`http://localhost:3000/api/delivered`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    });
-
-    if (res.ok) {
-      setOrders(orders.filter((order) => order._id !== orderId));
-      revalidatePath('/')
-    } else {
-      console.error("Failed to mark order as delivered");
-    }
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const ordersData = await getData();
-      setOrders(ordersData);
-    };
-    fetchData();
-  }, []);
+  const orders = await getData();
 
   return (
     <div className="p-4 flex flex-col items-center w-full">
@@ -103,7 +77,7 @@ const StandingOrders = async ({}) => {
                         {order.userDetails.firstName} {order.userDetails.lastName}
                       </td>
                       <td className="px-4 py-2 text-sm font-medium text-left">
-                        {order.orderedItems.map((product, index) => (
+                        {order?.orderedItems?.map((product, index) => (
                           <p key={index} className="whitespace-nowrap">
                             {product.name}{" "}
                             <span className="text-green-600">

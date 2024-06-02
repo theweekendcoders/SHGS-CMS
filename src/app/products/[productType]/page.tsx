@@ -15,7 +15,6 @@ const getData = async (product: string) => {
 const page = async ({ params }: any) => {
   const product = params.productType;
   const products = await getData(product);
-  console.log(products);
   const product_category = product;
 
   return (

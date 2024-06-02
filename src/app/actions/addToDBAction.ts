@@ -3,11 +3,13 @@ export const addToDB = async (formdata: FormData) => {
   const formData = formdata;
   console.log(formData);
 
-  const name = formdata.get("productName");
-  const category = formdata.get("productCategory");
-  const price = formdata.get("productPrice");
-  const stock = formdata.get("productStock");
-  const discount = formdata.get("productDiscount");
+  const name = formdata.get("name");
+  const category = formdata.get("category");
+  const type = formdata.get("type");
+  const image = formdata.get("image");
+  const price = formdata.get("price");
+  const stock = formdata.get("stock");
+  const discount = formdata.get("discount");
 
   const response = await fetch(
     "http://localhost:3000/api/products/addProduct",
@@ -16,9 +18,11 @@ export const addToDB = async (formdata: FormData) => {
       body: JSON.stringify({
         name,
         category,
+        type,
+        image,
         price,
         stock,
-        discount
+        discount,
       }),
     }
   );

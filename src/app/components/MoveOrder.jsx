@@ -19,9 +19,13 @@ const MoveOrderButton = ({ orderId }) => {
       } else {
         alert(`Failed to move order: ${data.message}`);
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('An error occurred:', error);
       alert('An error occurred while moving the order');
+    }
+    finally {
+      window.location.reload();
     }
   };
 

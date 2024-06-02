@@ -1,29 +1,32 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { updateToDB } from "../actions/updateToDBAction";
 
 const UpdateProducts = ({ product }) => {
-  const [productName, setProductName] = useState(product.product_name);
-  const [productCategory, setProductCategory] = useState(product.product_category);
-  const [sweetsCategory, setSweetsCategory] = useState('');
-  const [productPrice, setProductPrice] = useState(product.product_price);
-  const [productImage, setProductImage] = useState(product.product_image);
-  const [productStock, setProductStock] = useState(product.product_stock);
-  const [productDiscount, setProductDiscount] = useState('');
+  const productID = product.product_id;
+  const [name, setName] = useState(product.product_name);
+  const type = product.product_category;
+  const [category, setCategory] = useState('');
+  const [image, setImage] = useState(product.product_image);
+  const [price, setPrice] = useState(product.product_price);
+  const [stock, setStock] = useState(product.product_stock);
+  const [discount, setDiscount] = useState(product.product_discount);
+  console.log(product)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedProduct = {
-      productName,
-      productCategory,
-      sweetsCategory,
-      productPrice,
-      productImage,
-      productStock,
-      productDiscount,
+    const updatedData = {
+      productID,
+      name,
+      image,
+      type,
+      category,
+      price,
+      stock,
+      discount,
     };
-    updateToDB(updatedProduct);
+    updateToDB(updatedData);
   };
 
   return (
@@ -31,41 +34,41 @@ const UpdateProducts = ({ product }) => {
       <h1 className="text-3xl font-medium my-4">Add New Product</h1>
       <form onSubmit={handleSubmit} className="my-5 flex flex-col gap-8">
         <div className="flex flex-col gap-2">
-          <label htmlFor="productName" className="text-lg font-medium">
+          <label htmlFor="name" className="text-lg font-medium">
             Product Name
           </label>
           <input
             type="text"
-            id="productName"
-            name="productName"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
+            id="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productCategory" className="text-lg font-medium">
-            Product Category
+          <label htmlFor="type" className="text-lg font-medium">
+            Product Type
           </label>
           <input
             type="text"
-            id="productCategory"
-            name="productCategory"
-            value={productCategory}
+            id="type"
+            name="type"
+            value={type}
             readOnly
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
-        {productCategory === "sweets" && (
+        {type === "sweets" && (
           <div className="flex flex-col gap-2">
-            <label htmlFor="sweetsCategory" className="text-lg font-medium">
+            <label htmlFor="category" className="text-lg font-medium">
               Sweets Category
             </label>
             <select
-              id="sweetsCategory"
-              name="sweetsCategory"
-              value={sweetsCategory}
-              onChange={(e) => setSweetsCategory(e.target.value)}
+              id="category"
+              name="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               className="border-2 border-black p-2 rounded-sm"
             >
               <option value="">Select</option>
@@ -76,40 +79,40 @@ const UpdateProducts = ({ product }) => {
           </div>
         )}
         <div className="flex flex-col gap-2">
-          <label htmlFor="productPrice" className="text-lg font-medium">
+          <label htmlFor="price" className="text-lg font-medium">
             Product Price
           </label>
           <input
             type="text"
-            id="productPrice"
-            name="productPrice"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
+            id="price"
+            name="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productImage" className="text-lg font-medium">
+          <label htmlFor="image" className="text-lg font-medium">
             Product Image
           </label>
           <input
             type="text"
-            id="productImage"
-            name="productImage"
-            value={productImage}
-            onChange={(e) => setProductImage(e.target.value)}
+            id="image"
+            name="image"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productStock" className="text-lg font-medium">
+          <label htmlFor="stock" className="text-lg font-medium">
             Product Stock
           </label>
           <select
-            id="productStock"
-            name="productStock"
-            value={productStock}
-            onChange={(e) => setProductStock(e.target.value)}
+            id="stock"
+            name="stock"
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
             className="border-2 border-black p-2 rounded-sm"
           >
             <option value="">Select</option>
@@ -118,15 +121,15 @@ const UpdateProducts = ({ product }) => {
           </select>
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productDiscount" className="text-lg font-medium">
+          <label htmlFor="discount" className="text-lg font-medium">
             Product Discount
           </label>
           <input
             type="text"
-            id="productDiscount"
-            name="productDiscount"
-            value={productDiscount}
-            onChange={(e) => setProductDiscount(e.target.value)}
+            id="discount"
+            name="discount"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>

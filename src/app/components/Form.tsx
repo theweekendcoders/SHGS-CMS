@@ -7,24 +7,24 @@ const Form = ({ product }: any) => {
       <h1 className="text-3xl font-medium my-4">Add New Product</h1>
       <form action={addToDB} className="my-5 flex flex-col gap-8">
         <div className="flex flex-col gap-2">
-          <label htmlFor="productName" className="text-lg font-medium">
+          <label htmlFor="name" className="text-lg font-medium">
             Product Name
           </label>
           <input
             type="text"
-            id="productName"
-            name="productName"
+            id="name"
+            name="name"
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productCategory" className="text-lg font-medium">
-            Product Category
+          <label htmlFor="type" className="text-lg font-medium">
+            Product Type
           </label>
           <input
             type="text"
-            id="productCategory"
-            name="productCategory"
+            id="type"
+            name="type"
             className="border-2 border-black p-2 rounded-sm"
             value={product}
             readOnly
@@ -32,50 +32,50 @@ const Form = ({ product }: any) => {
         </div>
         {product === "sweets" && (
           <div className="flex flex-col gap-2">
-            <label htmlFor="sweetsCategory" className="text-lg font-medium">
+            <label htmlFor="category" className="text-lg font-medium">
               Sweets Category
             </label>
             <select
-            id="sweetsCategory"
-            name="sweetsCategory"
+            id="category"
+            name="category"
             className="border-2 border-black p-2 rounded-sm"
           >
             <option value="">Select</option>
-            <option value="inStock">Traditional Sweets</option>
-            <option value="outOfStock">Bengali Sweets</option>
-            <option value="outOfStock">Cashew Sweets</option>
+            <option value="Traditional Sweets">Traditional Sweets</option>
+            <option value="Bengali Sweets">Bengali Sweets</option>
+            <option value="Cashew Sweets">Cashew Sweets</option>
           </select>
           </div>
         )}
         <div className="flex flex-col gap-2">
-          <label htmlFor="productPrice" className="text-lg font-medium">
+          <label htmlFor="price" className="text-lg font-medium">
             Product Price
           </label>
           <input
             type="text"
-            id="productPrice"
-            name="productPrice"
+            id="price"
+            name="price"
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productImage" className="text-lg font-medium">
+          <label htmlFor="image" className="text-lg font-medium">
             Product Image
           </label>
           <input
             type="text"
-            id="productImage"
-            name="productImage"
+            id="image"
+            name="image"
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productStock" className="text-lg font-medium">
+          <label htmlFor="stock" className="text-lg font-medium">
             Product Stock
           </label>
           <select
-            id="productStock"
-            name="productStock"
+            id="stock"
+            name="stock"
             className="border-2 border-black p-2 rounded-sm"
           >
             <option value="">Select</option>
@@ -84,13 +84,13 @@ const Form = ({ product }: any) => {
           </select>
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="productDiscount" className="text-lg font-medium">
+          <label htmlFor="discount" className="text-lg font-medium">
             Product Discount
           </label>
           <input
             type="text"
-            id="productDiscount"
-            name="productDiscount"
+            id="discount"
+            name="discount"
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
