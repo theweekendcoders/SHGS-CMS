@@ -3,6 +3,7 @@ import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "../app/animations/SmoothScrolling";
 import NavBar from "./components/NavBar";
+import { ToastContainer } from "./toast";
 
 const inter = Inter({ subsets: ["latin"] });
 const manrope = Manrope({
@@ -28,6 +29,7 @@ export default function RootLayout({
         {/* <SmoothScrolling> */}
           <NavBar />
           {children}
+          <ToastContainer />
         {/* </SmoothScrolling> */}
       </body>
     </html>

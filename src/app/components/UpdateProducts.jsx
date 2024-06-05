@@ -1,37 +1,62 @@
-"use client"
+"use client";
 
-import React, { use, useState } from 'react';
+import React, { useState } from "react";
 import { updateToDB } from "../actions/updateToDBAction";
+import { toast } from "react-toastify";
 
 const UpdateProducts = ({ product }) => {
   const productID = product.product_id;
   const [name, setName] = useState(product.product_name);
-  const type = product.product_category;
-  const [category, setCategory] = useState('');
+  const category = product.product_category;
+  const [type, setType] = useState(product.product_type);
   const [image, setImage] = useState(product.product_image);
   const [price, setPrice] = useState(product.product_price);
   const [stock, setStock] = useState(product.product_stock);
   const [discount, setDiscount] = useState(product.product_discount);
-  console.log(product)
+  console.log(product);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const updatedData = {
-      productID,
-      name,
-      image,
-      type,
-      category,
-      price,
-      stock,
-      discount,
-    };
-    updateToDB(updatedData);
+    try {
+      e.preventDefault();
+      const updatedData = {
+        productID,
+        name,
+        image,
+        category, //sweet
+        type, //type of sweet
+        price,
+        stock,
+        discount,
+      };
+      updateToDB(updatedData);
+      toast.success(`${name} updated successfully!`, {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error(`${name} update failed :(`, {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-medium my-4">Add New Product</h1>
+      <h1 className="text-3xl font-medium my-4">Update {name}</h1>
       <form onSubmit={handleSubmit} className="my-5 flex flex-col gap-8">
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="text-lg font-medium">
@@ -47,28 +72,28 @@ const UpdateProducts = ({ product }) => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="type" className="text-lg font-medium">
-            Product Type
+          <label htmlFor="category" className="text-lg font-medium">
+            Product Category
           </label>
           <input
             type="text"
-            id="type"
-            name="type"
-            value={type}
+            id="category"
+            name="category"
+            value={category}
             readOnly
             className="border-2 border-black p-2 rounded-sm"
           />
         </div>
-        {type === "sweets" && (
+        {category === "sweets" && (
           <div className="flex flex-col gap-2">
-            <label htmlFor="category" className="text-lg font-medium">
-              Sweets Category
+            <label htmlFor="type" className="text-lg font-medium">
+              Sweet Type
             </label>
             <select
-              id="category"
-              name="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              id="type"
+              name="type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
               className="border-2 border-black p-2 rounded-sm"
             >
               <option value="">Select</option>

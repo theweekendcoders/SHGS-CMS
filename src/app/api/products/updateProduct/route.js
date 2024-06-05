@@ -13,8 +13,8 @@ export const POST = async (req, res) => {
     const { productID, name, type, category, price, image, stock, discount } = data;
     console.log(productID)
     console.log(name)
-    console.log(type)
     console.log(category)
+    console.log(type)
     console.log(price)
     console.log(image)
     console.log(stock)
@@ -27,19 +27,39 @@ export const POST = async (req, res) => {
     const client = await connectToDatabase();
     const db = client.db('sweetshop');
 
-    const result = await db.collection(type).updateOne(
-      { _id: new ObjectId(productID) },
-      { 
-        $set: {
-          name,
-          category,
-          image,
-          price,
-          stock,
-          discount
+
+    let result;
+    if(category === 'sweets'){
+        result = await db.collection(category).updateOne(
+        { _id: new ObjectId(productID) },
+        { 
+          $set: {
+            name,
+            type,
+            category,
+            image,
+            price,
+            stock,
+            discount
+          }
         }
-      }
-    );
+      );
+    }
+    else{
+        result = await db.collection(category).updateOne(
+        { _id: new ObjectId(productID) },
+        { 
+          $set: {
+            name,
+            category,
+            image,
+            price,
+            stock,
+            discount
+          }
+        }
+      );
+    }
 
     if (result.matchedCount === 0) {
       return NextResponse.json({ status: 404, error: "Product not found" });

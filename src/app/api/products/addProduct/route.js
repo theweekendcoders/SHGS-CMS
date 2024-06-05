@@ -5,7 +5,7 @@ export const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
       const data = await req.json();
-      const collection = data.type;
+      const collection = data.category;
       const client = await connectToDatabase();
       const db = client.db("sweetshop");
 

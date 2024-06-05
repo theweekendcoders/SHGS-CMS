@@ -1,5 +1,5 @@
 import React from 'react';
-
+``
 const MoveOrderButton = ({ orderId }) => {
   console.log(orderId);
   const moveOrder = async () => {
@@ -15,9 +15,27 @@ const MoveOrderButton = ({ orderId }) => {
       const data = await res.json();
 
       if (res.ok) {
-        alert('Order moved successfully');
+        toast.success("Moved successfully!", {
+          position: "bottom-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       } else {
-        alert(`Failed to move order: ${data.message}`);
+        toast.error(" Failed to move Order :(", {
+          position: "bottom-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     } 
     catch (error) {

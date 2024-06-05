@@ -1,6 +1,9 @@
+'use client';
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import DeleteButton from '../../components/DeleteButton'
 
 const getData = async (product: string) => {
   const res = await fetch(`http://localhost:3000/api/products/${product}`, {
@@ -66,23 +69,21 @@ const page = async ({ params }: any) => {
                 </td>
                 <td className="px-6 py-4 text-md font-medium text-left flex items-center gap-4">
                   <div className="bg-black hover:bg-green-400 w-10 h-10 flex items-center justify-center rounded-md cursor-pointer">
-
                     <Link
                       className="w-full"
                       href={{
-                        pathname: `/products/${product_category}/updateProduct`,
+                        pathname: `/products/${product.category}/updateProduct`,
                         query: {
-                          productDetails: JSON.stringify(
-                            {
-                              product_id: product._id,
-                              product_name: product.name,
-                              product_price: product.price,
-                              product_image: product.image,
-                              product_category: product_category,
-                              product_stock: product.stock,
-                            }
-                        
-                          ),
+                          productDetails: JSON.stringify({
+                            product_id: product._id,
+                            product_name: product.name,
+                            product_price: product.price,
+                            product_image: product.image,
+                            product_category: product.category,
+                            product_type: product.type,
+                            product_stock: product.stock,
+                            product_discount: product.discount,
+                          }),
                         },
                       }}
                     >
@@ -95,15 +96,7 @@ const page = async ({ params }: any) => {
                       />
                     </Link>
                   </div>
-                  <div className="bg-black hover:bg-red-600 w-10 h-10 flex items-center justify-center rounded-md cursor-pointer">
-                    <Image
-                      src="/assets/delete.png"
-                      width={24}
-                      height={24}
-                      alt={product.name}
-                      className="object-scale-down"
-                    />
-                  </div>
+                  <DeleteButton id={product._id} name={product.name} category={product.category}/>
                   <div className="bg-black hover:bg-blue-600 w-10 h-10 flex items-center justify-center rounded-md cursor-pointer">
                     <Image
                       src="/assets/view.png"

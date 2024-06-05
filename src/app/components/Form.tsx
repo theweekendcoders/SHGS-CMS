@@ -1,7 +1,9 @@
 import React from "react";
 import { addToDB } from "../actions/addToDBAction";
+import toast from "react-toastify";
 
 const Form = ({ product }: any) => {
+
   return (
     <div>
       <h1 className="text-3xl font-medium my-4">Add New Product</h1>
@@ -18,13 +20,13 @@ const Form = ({ product }: any) => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="type" className="text-lg font-medium">
-            Product Type
+          <label htmlFor="category" className="text-lg font-medium">
+            Product Category
           </label>
           <input
             type="text"
-            id="type"
-            name="type"
+            id="category"
+            name="category"
             className="border-2 border-black p-2 rounded-sm"
             value={product}
             readOnly
@@ -32,12 +34,12 @@ const Form = ({ product }: any) => {
         </div>
         {product === "sweets" && (
           <div className="flex flex-col gap-2">
-            <label htmlFor="category" className="text-lg font-medium">
-              Sweets Category
+            <label htmlFor="type" className="text-lg font-medium">
+              Sweet Type
             </label>
             <select
-            id="category"
-            name="category"
+            id="type"
+            name="type"
             className="border-2 border-black p-2 rounded-sm"
           >
             <option value="">Select</option>
@@ -98,6 +100,7 @@ const Form = ({ product }: any) => {
           type="submit"
           value="Add Product"
           className="px-12 py-6 rounded-full bg-black text-white"
+          // onClick={handleToast}
         />
       </form>
     </div>
