@@ -1,8 +1,13 @@
-import React from 'react';
-``
-const MoveOrderButton = ({ orderId }) => {
-  console.log(orderId);
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+
+const MoveOrderButton = ({ orderId, onOrderMoved }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const moveOrder = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
     try {
       const res = await fetch('http://localhost:3000/api/delivered', {
         method: 'POST',
@@ -25,31 +30,37 @@ const MoveOrderButton = ({ orderId }) => {
           progress: undefined,
           theme: "dark",
         });
+        
+        // Callback to parent component to update UI
+        onOrderMoved(orderId);
       } else {
-        toast.error(" Failed to move Order :(", {
-          position: "bottom-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        throw new Error(data.message || 'Failed to move order');
       }
-    } 
-    catch (error) {
+    } catch (error) {
       console.error('An error occurred:', error);
-      alert('An error occurred while moving the order');
-    }
-    finally {
+      toast.error(`Failed to move Order: ${error.message}`, {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } finally {
+      setIsLoading(false);
       window.location.reload();
     }
   };
 
   return (
-    <button onClick={moveOrder} className="bg-blue-500 text-white p-2 rounded">
-      Delivered
+    <button 
+      onClick={moveOrder} 
+      className={`text-white p-2 rounded ${isLoading ? 'bg-gray-500' : 'bg-blue-500'}`}
+      disabled={isLoading}
+    >
+      {isLoading ? 'Processing...' : 'Delivered'}
     </button>
   );
 };
