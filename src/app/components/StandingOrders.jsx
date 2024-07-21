@@ -80,10 +80,17 @@ const StandingOrders = async ({}) => {
                         {order?.orderedItems?.map((product, index) => (
                           <p key={index} className="whitespace-nowrap">
                             {product.name}{" "}
-                            <span className="text-green-600">
+                          {(product.category === 'poli' || product.name === 'Veg Samosa') ? 
+                            (
+                              <span className="text-green-600">
+                              ({product.weight*5*product.quantity} pieces)
+                            </span>
+                            ): (
+                              <span className="text-green-600">
                               ({product.weight}g x {product.quantity})
                             </span>
-                          </p>
+                            )}
+                            </p>
                         ))}
                       </td>
                       <td className="px-4 py-2 text-sm font-medium text-left">
